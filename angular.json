@@ -57,7 +57,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "Cartes:build"
+            "browserTarget": "Cartes:build",
+            "proxyConfig": "proxy.conf.json" ////////dobavil tp4
           },
           "configurations": {
             "production": {

@@ -23,7 +23,7 @@ import { PartieComponent } from './partie/partie.component';
     RouterModule.forRoot([
       { path: '', component: LoginComponent },
       { path: ':register', component: RegistrerComponent },
-      { path: ':partie', component: PartieComponent }
+      { path: ':login/partie', component: PartieComponent }
     ]),
     BrowserModule
   ],

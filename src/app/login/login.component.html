@@ -1,0 +1,21 @@
+<h1> Connection </h1>
+<form (ngSubmit)="ngOnInit()">
+  <mat-card  style="max-width: 2300px;  background: cornsilk ; min-width: 300px  ; margin: 20px;">
+    <mat-form-field (ngSubmit)="ngOnInit()"   >
+      <input [(ngModel)]="loginUser.username" name="us" matInput placeholder="Email" >
+      <h5 style="color: red" *ngIf="( validerLog() !== true)"> Email est obligatoir   </h5>
+    </mat-form-field>
+  </mat-card>
+
+  <mat-card  style="max-width: 2300px;  background: cornsilk ; min-width: 300px  ; margin: 20px;">
+    <mat-form-field >
+      <input [(ngModel)]="loginUser.password" name="pw" matInput placeholder="password" type="password" >
+      <h5 style="color: red" *ngIf="( validerPw() !== true)"> Password est obligatoir   </h5>
+    </mat-form-field>
+  </mat-card>
+
+
+
+  <button *ngIf="(validerLog() == true && validerPw() ==true)" mat-raised-button color="primary" (click)="login()"> Connecter </button>
+
+</form>

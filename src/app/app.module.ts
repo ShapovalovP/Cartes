@@ -22,7 +22,8 @@ import { PartieComponent } from './partie/partie.component';
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: LoginComponent },
-      { path: ':register', component: RegistrerComponent }
+      { path: ':register', component: RegistrerComponent },
+      { path: ':partie', component: PartieComponent }
     ]),
     BrowserModule
   ],

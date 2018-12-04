@@ -6,18 +6,21 @@ import {RouterModule} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {LoginComponent} from './login/login.component';
+import { RegistrerComponent } from './registrer/registrer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    RegistrerComponent
   ],
   imports: [
     MaterialModule,
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-      { path: '', component: LoginComponent }
+      { path: '', component: LoginComponent },
+      { path: ':register', component: RegistrerComponent }
     ]),
     BrowserModule
   ],

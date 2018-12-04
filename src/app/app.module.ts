@@ -7,12 +7,14 @@ import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {LoginComponent} from './login/login.component';
 import { RegistrerComponent } from './registrer/registrer.component';
+import { PartieComponent } from './partie/partie.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegistrerComponent
+    RegistrerComponent,
+    PartieComponent
   ],
   imports: [
     MaterialModule,

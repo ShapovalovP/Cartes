@@ -1,0 +1,42 @@
+
+
+  <div class="container">
+    <div class="row">
+
+
+
+        <mat-card  *ngFor="let c of tabCartAletoir"  style="width: 170px;  background:brown;  margin: 5px; height: 200px;  " >
+          <mat-card-header>
+            <h3 style="color: white"> {{c.id}} </h3>
+          </mat-card-header>
+          <!--  <img mat-card-image src= "{{a.image}}"[routerLink]="['/', a.nom]">-->
+            <mat-card-content>
+
+
+          </mat-card-content>
+        </mat-card>
+
+    </div>
+  </div>
+  <div class="container"  style="width: 550px;  background:beige;   height: 400px;" >
+    <div class="row">
+
+
+
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+
+      <mat-card  *ngFor="let c of tabCartUser"  style="width: 170px;  background:darkblue;  margin: 5px; height: 200px;  " >
+            <!-- <img mat-card-image src= "{{a.image}}"[routerLink]="['/', a.nom]">-->
+        <mat-card-content>
+          <h5 style="color: white"> Ataque: {{c.valeurAttaque}} </h5>
+          <h5 style="color: white"> Defense: {{c.valeurDefense}} </h5>
+
+
+        </mat-card-content>
+      </mat-card>
+
+    </div>
+  </div>

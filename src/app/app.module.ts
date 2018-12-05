@@ -8,13 +8,15 @@ import {HttpClientModule} from '@angular/common/http';
 import {LoginComponent} from './login/login.component';
 import { RegistrerComponent } from './registrer/registrer.component';
 import { PartieComponent } from './partie/partie.component';
+import { CarteComponent } from './carte/carte.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegistrerComponent,
-    PartieComponent
+    PartieComponent,
+    CarteComponent
   ],
   imports: [
     MaterialModule,
@@ -23,7 +25,7 @@ import { PartieComponent } from './partie/partie.component';
     RouterModule.forRoot([
       { path: '', component: LoginComponent },
       { path: ':register', component: RegistrerComponent },
-      { path: ':login/partie', component: PartieComponent }
+      { path: ':login/cartes', component: CarteComponent }
     ]),
     BrowserModule
   ],

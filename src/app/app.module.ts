@@ -25,7 +25,8 @@ import { CarteComponent } from './carte/carte.component';
     RouterModule.forRoot([
       { path: '', component: LoginComponent },
       { path: ':register', component: RegistrerComponent },
-      { path: ':login/cartes', component: CarteComponent }
+      { path: ':login/cartes', component: CarteComponent },
+      { path: ':login/partie', component: PartieComponent }
     ]),
     BrowserModule
   ],

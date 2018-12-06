@@ -10,12 +10,11 @@ import {forEach} from '@angular/router/src/utils/collection';
   styleUrls: ['./carte.component.css']
 })
 export class CarteComponent implements OnInit {
+  public  votreTour: boolean = true;
   public  tabCartAletoir: Carte [] = [];
   public  tabCartUser: Carte [] = [];
 
   public  tabCartTour: Carte [] = [];
-  public cartAletoir: Carte = null ;
-  public  cartUser: Carte = null;
 
   public  tabCartUserParti: Carte[] = [];
   public  tabCartComputerParti: Carte[] = [];
@@ -24,11 +23,36 @@ export class CarteComponent implements OnInit {
   public  tabCartComputerBatu: Carte[] = [];
 
   public  point: number = 0;
+  public  usersPoint: string ;
   constructor(public router: Router, public http: HttpClient) { }
 
   ngOnInit() {
    this.getAletoir();
    this.getCartsUser();
+   this.getUsersPoint();
+  }
+  setNewGame() {
+    this.votreTour = true;
+   this.tabCartAletoir  = [];
+    this.tabCartUser = [];
+    this.tabCartTour = [];
+    this.tabCartUserParti = [];
+    this.tabCartComputerParti = [];
+    this.tabCartUserBatu = [];
+    this.tabCartComputerBatu = [];
+    this.point = 0;
+    this.usersPoint = null ;
+   this.ngOnInit();
+  }
+  getUsersPoint() {
+    const token = localStorage.getItem('Token');
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      })
+    };
+    return this.http.get<string> ('api/Cartes/AddUsersPoint/' + this.point,  httpOptions ). subscribe( r => this.usersPoint = r);
   }
   getAletoir() {
     const token = localStorage.getItem('Token');
@@ -51,11 +75,16 @@ export class CarteComponent implements OnInit {
     return this.http.get<Carte[]> ('api/Cartes/Aletoir', httpOptions ). subscribe( r => this.tabCartUser = r);
   }
   selectFromDeck( cart: Carte ) {
-     this.suprimCartTab(cart, this.tabCartUser);
-     this.tabCartUserParti.push(cart);
-     if ( this.tabCartComputerParti.length === 0) {
-      this.getComputersCart();
-     }
+    if (this.point === 0 && this.votreTour === true) {
+      this.suprimCartTab(cart, this.tabCartUser);
+       const kart: Carte = new Carte( this.tabCartUser.length + 5, cart.valeurAttaque, cart.valeurDefense,
+         cart.prixAchat, cart.prixVendre, cart.image, cart.imageDerier, cart.rezBatail );
+      this.tabCartUserParti.push(kart);
+      if (this.tabCartComputerParti.length === 0) {
+        this.getComputersCart();
+      }
+      this.votreTour = false;
+    }
   }
   getComputersCart() {
     const token = localStorage.getItem('Token');
@@ -80,6 +109,7 @@ export class CarteComponent implements OnInit {
       }
       if (this.tabCartComputerParti.length === 0 && this.tabCartAletoir.length === 0) {
         this.point = 1000; ///// Game over!!!!
+        this.getUsersPoint();
       }
     }
   }
@@ -87,6 +117,8 @@ export class CarteComponent implements OnInit {
    if ( this.tabCartTour[0] !== null) {
    this.tabCartTour.push(cart);
    } else {return; }
+
+
     if ( this.tabCartTour[0] !== null && this.tabCartTour[1] !== null ) {
      const userCart: Carte = this.tabCartTour[0];
       const compCart: Carte = this.tabCartTour[1];
@@ -126,10 +158,12 @@ export class CarteComponent implements OnInit {
       this.tabCartTour.splice(0, 2);
       if (this.tabCartComputerParti.length === 0 && this.tabCartAletoir.length === 0) {
         this.point = 1000; ///// Game over!!!!
+        this.getUsersPoint();
       }
       if (this.tabCartUserParti.length === 0 && this.tabCartUser.length === 0) {
         this.point = 1; ///// Game over!!!!
       }
+      this.votreTour = true;
    }
   }
   suprimCartTab (cart: Carte, tab: Carte[]) {

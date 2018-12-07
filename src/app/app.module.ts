@@ -10,6 +10,7 @@ import { RegistrerComponent } from './registrer/registrer.component';
 import { PartieComponent } from './partie/partie.component';
 import { CarteComponent } from './carte/carte.component';
 import { DeckCreatorComponent } from './deck-creator/deck-creator.component';
+import {MarcheComponent} from './marche/marche.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { DeckCreatorComponent } from './deck-creator/deck-creator.component';
     RegistrerComponent,
     PartieComponent,
     CarteComponent,
-    DeckCreatorComponent
+    DeckCreatorComponent,
+    MarcheComponent
   ],
   imports: [
     MaterialModule,
@@ -29,6 +31,7 @@ import { DeckCreatorComponent } from './deck-creator/deck-creator.component';
       { path: ':register', component: RegistrerComponent },
       { path: ':login/cartes', component: CarteComponent },
       { path: ':login/partie', component: PartieComponent },
+      { path: ':login/marche', component: MarcheComponent },
       { path: ':login/deckcreator', component: DeckCreatorComponent }
     ]),
     BrowserModule

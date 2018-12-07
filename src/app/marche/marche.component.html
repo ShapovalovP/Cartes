@@ -1,26 +1,28 @@
 <div style="display: flex; flex-wrap: wrap; justify-content: space-evenly; margin: 20px;">
 
-  <mat-card style="max-width: 250px;"  *ngFor="let c of carte">
+      <mat-card style="max-width: 250px; "  *ngFor="let c of carte">
 
 
-    <img mat-card-image src="{{c.image}}">
+        <img mat-card-image src="{{c.image}}">
 
 
-    <mat-card-content>
-      <p>
-       Attaque:{{c.valeurAttaque}}
-      </p>
-      <p>
-      Defense:{{c.valeurDefense}}
-      </p>
-      <p>
-       Prix:{{c.prixAchat}}
-      </p>
-    </mat-card-content>
-    <mat-card-actions>
+        <mat-card-content>
+          <p>
+           Attaque:{{c.valeurAttaque}}
+          </p>
+          <p>
+          Defense:{{c.valeurDefense}}
+          </p>
+          <p>
+           Prix:{{c.prixAchat}}
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
 
-      <button mat-raised-button color="primary">Achete</button>
-    </mat-card-actions>
-  </mat-card>
+          <button mat-raised-button color="primary">Achete</button>
+        </mat-card-actions>
+      </mat-card>
 
-</div>
+
+  </div>
+

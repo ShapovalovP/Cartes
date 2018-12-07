@@ -24,7 +24,7 @@ export class MarcheComponent implements OnInit {
     this.http.get<any>('api/Cartes', httpOptions ). subscribe( response => {
       console.log(response);
       for (const carte of response) {
-          this.carte.push(new Carte(carte.Id, carte.ValeurAttaque, carte.ValeurDefense, carte.prixAchat, carte.prixVendre, carte.image, carte.imageDerier, 0));
+          this.carte.push(new Carte(carte.Id, carte.valeurAttaque, carte.valeurDefense, carte.prixAchat, carte.prixVendre, carte.image, carte.imageDerier, 0));
         }
     });
   }

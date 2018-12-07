@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MarcheComponent } from './marche.component';
+import { DeckCreatorComponent } from './deck-creator.component';
 
-describe('MarcheComponent', () => {
-  let component: MarcheComponent;
-  let fixture: ComponentFixture<MarcheComponent>;
+describe('DeckCreatorComponent', () => {
+  let component: DeckCreatorComponent;
+  let fixture: ComponentFixture<DeckCreatorComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MarcheComponent ]
+      declarations: [ DeckCreatorComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MarcheComponent);
+    fixture = TestBed.createComponent(DeckCreatorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

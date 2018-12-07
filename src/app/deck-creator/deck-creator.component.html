@@ -1,8 +1,25 @@
-<div class="row">
-  <div class="col-md-8">
-  safdas
-  </div>
-  <div class="col-md-4">
-sdfafsd
+<div>
+  <div class="row">
+    <div class="col-md-8" >
+    <div  style="display: flex; flex-wrap: wrap; justify-content: space-evenly; margin: 20px; ">
+      <mat-card id="backgroundCarte"    *ngFor="let c of carte">
+        <img mat-card-image src="{{c.image}}">
+        <mat-card-content>
+          <p>
+            Atk : {{c.valeurAttaque}}
+          </p>
+          <p>
+            Def : {{c.valeurDefense}}
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="primary">Add to deck</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+    </div>
+    <div class="col-md-4">
+      <mat-card id="titleCardInDeck">Current cards in deck</mat-card>
+    </div>
   </div>
 </div>

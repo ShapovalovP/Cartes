@@ -1,5 +1,5 @@
 <div class=" container" >
-<button  mat-raised-button style="margin: 5px" color= "warn" (click)="setNewGame()"> New game </button>
+<button  mat-raised-button style="margin: 5px" color= "warn" (click)="setNewGame()"> Nouveau jeu </button>
   <div class="container"  style="width: 100%;  background:beige; margin: 15px;  height: 100%;">
     <div class="row justify-content-center align-items-center" >
 
@@ -12,7 +12,7 @@
 
       <div *ngIf="( point !== 0 )">
         <h1 *ngIf="( point === 1000 )"> You got {{point}} points </h1>
-        <h1 *ngIf="( point === 1 )"> Computer got  1000 points  </h1>
+        <h1 *ngIf="( point === 1 )"> Jeu terminé  </h1>
       </div>
     </div>
 

@@ -9,7 +9,7 @@ import {LoginComponent} from './login/login.component';
 import { RegistrerComponent } from './registrer/registrer.component';
 import { PartieComponent } from './partie/partie.component';
 import { CarteComponent } from './carte/carte.component';
-import { MarcheComponent } from './marche/marche.component';
+import { DeckCreatorComponent } from './deck-creator/deck-creator.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +18,7 @@ import { MarcheComponent } from './marche/marche.component';
     RegistrerComponent,
     PartieComponent,
     CarteComponent,
-    MarcheComponent
+    DeckCreatorComponent
   ],
   imports: [
     MaterialModule,
@@ -29,11 +29,11 @@ import { MarcheComponent } from './marche/marche.component';
       { path: ':register', component: RegistrerComponent },
       { path: ':login/cartes', component: CarteComponent },
       { path: ':login/partie', component: PartieComponent },
-      { path: ':login/marche', component: MarcheComponent }
+      { path: ':login/deckcreator', component: DeckCreatorComponent }
     ]),
     BrowserModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent, DeckCreatorComponent ]
 })
 export class AppModule { }

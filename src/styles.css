@@ -6,3 +6,13 @@ body {
   max-width: 100%;
   height: auto;
 }
+
+.mat-card {
+  background: none;
+  color: white;
+  text-align: center;
+}
+
+.mat-card:not([class*=mat-elevation-z]){
+  box-shadow: none;
+}

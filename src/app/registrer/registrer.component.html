@@ -1,26 +1,38 @@
-<form (ngSubmit)="ngOnInit()">
-  <mat-card  style="max-width: 2300px;  background: cornsilk ; min-width: 300px  ; margin: 20px;">
-    <mat-form-field (ngSubmit)="ngOnInit()"   >
-      <input [(ngModel)]="userr.Email" name="em" matInput placeholder="email"  > <!--type="email"-->
+<div class=" container"  >
+  <div class="row justify-content-center align-items-center">
+    <div class="col-md-2">
+      <form (ngSubmit)="ngOnInit()">
 
-    </mat-form-field>
-    <h5 style="color: red" *ngIf="( validerEmail() !== true)"> Email est obligatoir   </h5>
-  </mat-card>
 
-  <mat-card  style="max-width: 2300px;  background: cornsilk ; min-width: 300px  ; margin: 20px;">
-    <mat-form-field >
-      <input [(ngModel)]="userr.Password" name="pw" matInput placeholder="password" type="password" >
-    </mat-form-field>
-    <h5 style="color: red" *ngIf="( validerPW() !== true)"> Password est obligatoir   </h5>
-  </mat-card>
+        <mat-card  style="max-width: 2300px;  background: cornsilk ; min-width: 300px  ; margin: 20px;">
+          <mat-form-field (ngSubmit)="ngOnInit()"   >
+            <input [(ngModel)]="userr.Email" name="em" matInput placeholder="email"  > <!--type="email"-->
 
-  <mat-card  style="max-width: 2300px;  background: cornsilk ; min-width: 300px  ; margin: 20px;">
-    <mat-form-field >
-      <input [(ngModel)]="userr.ConfirmPassword" name="cpw" matInput placeholder="confirmPassword" type="password" >
-    </mat-form-field>
-    <h5 style="color: red" *ngIf="( validerCPW() !== true)"> ConfirmationPassword n'est pas identique   </h5>
-  </mat-card>
+          </mat-form-field>
+          <h5 style="color: red" *ngIf="( validerEmail() !== true)"> Email est obligatoir   </h5>
+        </mat-card>
 
-  <button *ngIf="( valider() == true)" mat-raised-button color="primary"(click)="Register()">add</button>
 
-</form>
+
+        <mat-card  style="max-width: 2300px;  background: cornsilk ; min-width: 300px  ; margin: 20px;">
+          <mat-form-field >
+            <input [(ngModel)]="userr.Password" name="pw" matInput placeholder="password" type="password" >
+          </mat-form-field>
+          <h5 style="color: red" *ngIf="( validerPW() !== true)"> Password est obligatoir   </h5>
+          <h5 style="color: red"> {{error}}   </h5>
+        </mat-card>
+
+        <mat-card  style="max-width: 2300px;  background: cornsilk ; min-width: 300px  ; margin: 20px;">
+          <mat-form-field >
+            <input [(ngModel)]="userr.ConfirmPassword" name="cpw" matInput placeholder="confirmPassword" type="password" >
+          </mat-form-field>
+          <h5 style="color: red" *ngIf="( validerCPW() !== true)"> ConfirmationPassword n'est pas identique   </h5>
+        </mat-card>
+
+
+        <button *ngIf="( valider() == true)" mat-raised-button color="primary"(click)="Register()">add</button>
+
+      </form>
+    </div>
+  </div>
+</div>

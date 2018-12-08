@@ -6,8 +6,9 @@
     <mat-toolbar color="primary">
 
       <button *ngIf="(User === null)" mat-raised-button style="margin: 5px" color= "warn" [routerLink]="['register']"> Enregistrer </button>
+      <button *ngIf="(User === null)" mat-raised-button style="margin: 5px" color= "warn" [routerLink]="['']"> Connecter </button>
 
-      <button  *ngIf="(User !== null)" mat-raised-button color= "warn" (click)="logout()"  [routerLink]="['/']">  deconect {{ User }} </button>
+      <button  *ngIf="(User !== null)" mat-raised-button color= "warn" (click)="logout()"  [routerLink]="['/']">  Deconnect {{ User }} </button>
 
     </mat-toolbar>
   </div>

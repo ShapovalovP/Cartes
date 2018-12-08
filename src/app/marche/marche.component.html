@@ -17,9 +17,14 @@
        Prix:{{c.prixAchat}}
       </p>
     </mat-card-content>
-    <mat-card-actions>
+    <mat-card-actions align="left">
 
-      <button mat-raised-button color="primary">Achete</button>
+      <div *ngIf="c.carteuser===false">
+      <button mat-raised-button color="primary" (click)="achete(c)">Achete</button>
+       </div>
+      <div *ngIf="c.carteuser===true">
+        <button mat-raised-button color="secondary"(click)="vendre(c)">Vendre</button>
+      </div>
     </mat-card-actions>
   </mat-card>
 

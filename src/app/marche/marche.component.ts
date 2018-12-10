@@ -13,8 +13,13 @@ export class MarcheComponent implements OnInit {
   public carte: CarteUser[] = [];
   public carteUser: CarteUser[] = [];
   public listtoutecarte: CarteUser[] = [];
+  public point: number;
 
   constructor(public router: Router, public http: HttpClient) { }
+  public listtoute() {
+  this.carte = this.listtoutecarte;
+
+  }
   public listachete() {
     this.carte = this.listtoutecarte;
     let carte2: CarteUser[] = [];
@@ -41,17 +46,21 @@ export class MarcheComponent implements OnInit {
   }
 
   public achete(cu:CarteUser){
-    const c=new Carte(cu.id,cu.valeurAttaque,cu.valeurDefense,cu.prixAchat,cu.prixVendre,cu.image,cu.imageDerier,cu.rezBatail);
-    const body = c;
-    const token = localStorage.getItem('Token');
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token
-      })
-    };
-    this.http.post('api/Cartes/PostCartesUser',JSON.stringify(body), httpOptions).subscribe( response=> this.ngOnInit())
-
+    if (this.point >= cu.prixAchat) {
+      const c = new Carte(cu.id, cu.valeurAttaque, cu.valeurDefense, cu.prixAchat, cu.prixVendre, cu.image, cu.imageDerier, cu.rezBatail);
+      const body = c;
+      const token = localStorage.getItem('Token');
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        })
+      };
+      this.http.post('api/Cartes/PostCartesUser', JSON.stringify(body), httpOptions).subscribe(response => this.ngOnInit())
+    }
+    else {
+      alert('il te faut minimum ' + cu.prixAchat + ' et tu as ' + this.point);
+    }
   }
   public vendre(cu:CarteUser){
     const c=new Carte(cu.id,cu.valeurAttaque,cu.valeurDefense,cu.prixAchat,cu.prixVendre,cu.image,cu.imageDerier,cu.rezBatail);
@@ -77,6 +86,7 @@ export class MarcheComponent implements OnInit {
         'Authorization': 'Bearer ' + token
       })
     };
+    this.http.get<any>('api/Cartes/GetPointsUser', httpOptions ). subscribe( response3 => this.point = response3 )
     this.http.get<any>('api/Cartes/GetCartesUser', httpOptions ). subscribe( response2 => {
       for (const carte of response2) {
         this.carteUser.push(new CarteUser(carte.id, carte.valeurAttaque, carte.valeurDefense, carte.prixAchat, carte.prixVendre, carte.image, carte.imageDerier, 0, true));

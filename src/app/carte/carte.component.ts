@@ -114,47 +114,74 @@ export class CarteComponent implements OnInit {
     }
   }
   getBatail( cart: Carte ) {
-   if ( this.tabCartTour[0] !== null) {
-   this.tabCartTour.push(cart);
-   } else {return; }
+    if ( this.tabCartTour[0] !== null) {
+      this.tabCartTour.push(cart);
+    } else {return; }
 
 
     if ( this.tabCartTour[0] !== null && this.tabCartTour[1] !== null ) {
-     const userCart: Carte = this.tabCartTour[0];
+      const userCart: Carte = this.tabCartTour[0];
       const compCart: Carte = this.tabCartTour[1];
 
-      let dCart1: number ;
-      if ( this.tabCartTour[0].rezBatail == null) {
-        dCart1 = this.tabCartTour[0].valeurDefense - this.tabCartTour[1].valeurAttaque; } else {
-        dCart1 = this.tabCartTour[0].rezBatail - this.tabCartTour[1].valeurAttaque;
+      /////// dobavliau / Ogon woda zemlia////////////////////////////////
+      if (userCart.image === '/assets/feu.jpg' && compCart.image === '/assets/water.jpg' ||
+        userCart.image === '/assets/terre.jpg' && compCart.image === '/assets/feu.jpg' ||
+        userCart.image === '/assets/water.jpg' && compCart.image === '/assets/terre.jpg') {
+        // User proigral CompVigral
+        this.tabCartTour[0].rezBatail = 0;
+        this.tabCartUserBatu.push(this.tabCartTour[0]);
+        this.suprimCartTab(this.tabCartTour[0], this.tabCartUserParti);
+        this.tabCartTour[1].valeurDefense = 1;
       }
+      else if (userCart.image === '/assets/water.jpg' && compCart.image === '/assets/feu.jpg' ||
+        userCart.image === '/assets/feu.jpg' && compCart.image === '/assets/terre.jpg' ||
+        userCart.image === '/assets/terre.jpg' && compCart.image === '/assets/water.jpg'
 
-      let dCart2: number ;
-      if ( this.tabCartTour[1].rezBatail == null) {
-        dCart2 = this.tabCartTour[1].valeurDefense - this.tabCartTour[0].valeurAttaque; } else {
-        dCart2 = this.tabCartTour[1].rezBatail - this.tabCartTour[0].valeurAttaque;
-      }
-      this.tabCartTour[0].rezBatail = dCart1;
-      this.tabCartTour[1].rezBatail = dCart2;
-
-      if ( dCart1 <= 0) {
-        this.tabCartTour[0].image = '/assets/perdu.jpg';
-        this.tabCartUserBatu. push(this.tabCartTour[0]);
-       this.suprimCartTab(this.tabCartTour[0], this.tabCartUserParti);
-      } else {
-
-      }
-
-
-      if ( dCart2 <= 0) {
-        this.tabCartTour[1].image = '/assets/perdu.jpg';
+      ) {
+        // UserVigral  Compproigral
+        this.tabCartTour[1].rezBatail = 0;
         this.tabCartComputerBatu.push(this.tabCartTour[1]);
         this.suprimCartTab(this.tabCartTour[1], this.tabCartComputerParti);
-      } else {
-
-       // this.tabCartComputerParti.push(this.tabCartTour[1]);
+        this.tabCartTour[0].valeurDefense = 1;
       }
+      else {
 
+        ///////////////////////////////////////////////////////////////////////
+        let dCart1: number;
+        if (this.tabCartTour[0].rezBatail == null) {
+          dCart1 = this.tabCartTour[0].valeurDefense - this.tabCartTour[1].valeurAttaque;
+        } else {
+          dCart1 = this.tabCartTour[0].rezBatail - this.tabCartTour[1].valeurAttaque;
+        }
+
+        let dCart2: number;
+        if (this.tabCartTour[1].rezBatail == null) {
+          dCart2 = this.tabCartTour[1].valeurDefense - this.tabCartTour[0].valeurAttaque;
+        } else {
+          dCart2 = this.tabCartTour[1].rezBatail - this.tabCartTour[0].valeurAttaque;
+        }
+        this.tabCartTour[0].rezBatail = dCart1;
+        this.tabCartTour[1].rezBatail = dCart2;
+
+        if (dCart1 <= 0) {
+          this.tabCartTour[0].image = '/assets/perdu.jpg';
+          this.tabCartUserBatu.push(this.tabCartTour[0]);
+          this.suprimCartTab(this.tabCartTour[0], this.tabCartUserParti);
+        } else {
+
+        }
+
+        if (dCart2 <= 0) {
+          this.tabCartTour[1].image = '/assets/perdu.jpg';
+          this.tabCartComputerBatu.push(this.tabCartTour[1]);
+          this.suprimCartTab(this.tabCartTour[1], this.tabCartComputerParti);
+        } else {
+
+          // this.tabCartComputerParti.push(this.tabCartTour[1]);
+        }
+
+
+      }
       this.tabCartTour.splice(0, 2);
       if (this.tabCartComputerParti.length === 0 && this.tabCartAletoir.length === 0) {
         this.point = 1000; ///// Game over!!!!
@@ -164,7 +191,7 @@ export class CarteComponent implements OnInit {
         this.point = 1; ///// Game over!!!!
       }
       this.votreTour = true;
-   }
+    }
   }
   suprimCartTab (cart: Carte, tab: Carte[]) {
     for (let i = 0; i < tab.length; i++) {

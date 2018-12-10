@@ -25,13 +25,13 @@
 
       <div *ngIf="c.carteuser===false">
         <p>
-          Prix:{{c.prixAchat}}
+          Prix:{{c.prixAchat}} $
         </p>
       <button mat-raised-button color="primary" (click)="achete(c)">Achete</button>
        </div>
       <div *ngIf="c.carteuser===true">
         <p>
-          Prix:{{c.prixVendre}}
+          Prix:{{c.prixVendre}} $
         </p>
         <button mat-raised-button color="secondary"(click)="vendre(c)">Vendre</button>
       </div>

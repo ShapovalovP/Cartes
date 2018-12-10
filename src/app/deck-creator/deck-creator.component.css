@@ -1,10 +1,15 @@
 #titleCardInDeck{
   background-color: orange;
 }
-#backgroundCarte{
+.backgroundCarte{
   background-color: orange;
   max-width: 25%;
   margin-bottom: 7pt;
   margin-top: 5pt;
 
+}
+#baqckgroundCarteDeck{
+  background-color: orange;
+  max-width: 66%;
+  margin-bottom: 7pt;
 }

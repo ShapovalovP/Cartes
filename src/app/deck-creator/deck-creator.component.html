@@ -1,25 +1,44 @@
 <div class=" container"  >
   <div class="row">
     <div class="col-md-8" >
-    <div  style="display: flex; flex-wrap: wrap; justify-content: space-evenly; margin: 2px; ">
-      <mat-card style="margin: 2px;" id="backgroundCarte"    *ngFor="let c of carte">
-        <img mat-card-image src="{{c.image}}">
-        <mat-card-content>
-          <p>
-            Atk : {{c.valeurAttaque}}
-          </p>
-          <p>
+      <div  style="display: flex; flex-wrap: wrap; justify-content: space-evenly; margin: 2px; ">
+        <mat-card style="margin: 2px;" class="backgroundCarte"    *ngFor="let c of carteUser">
+          <img mat-card-image src="{{c.image}}">
+          <mat-card-content>
+            <p>
+              Atk : {{c.valeurAttaque}}
+            </p>
+            <p>
             Def : {{c.valeurDefense}}
-          </p>
-        </mat-card-content>
-        <mat-card-actions>
-          <button mat-raised-button color="primary">Add to deck</button>
-        </mat-card-actions>
-      </mat-card>
+            </p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-raised-button color="primary" (click)="addCardToDeck(c)" >Add to deck</button>
+            </mat-card-actions>
+            </mat-card>
     </div>
     </div>
     <div class="col-md-4">
       <mat-card id="titleCardInDeck">Current cards in deck</mat-card>
+      <div   style="display: flex; flex-wrap: wrap; justify-content: space-evenly; margin: 2px; " >
+        <mat-card style="margin: 2px;" id="baqckgroundCarteDeck"    *ngFor="let addedCards of carteDeck">
+          <img mat-card-image src="{{addedCards.image}}">
+          <mat-card-content>
+            <p>
+              Atk : {{addedCards.valeurAttaque}}
+            </p>
+            <p>
+              Def : {{addedCards.valeurDefense}}
+            </p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-raised-button color="primary" (click)="removeCardFromDeck(addedCards)" >Remove from deck</button>
+          </mat-card-actions>
+        </mat-card>
+        <mat-card>
+          <button mat-raised-button color="primary" (click)="createDeck()" >Create deck</button>
+        </mat-card>
+      </div>
     </div>
   </div>
 </div>

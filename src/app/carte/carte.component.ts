@@ -30,6 +30,10 @@ export class CarteComponent implements OnInit {
    this.getAletoir();
    this.getCartsUser();
    this.getUsersPoint();
+   }
+  computerStart() {
+   this.getComputersCart();
+    this.votreTour = true;
   }
   setNewGame() {
     this.votreTour = true;
@@ -52,7 +56,10 @@ export class CarteComponent implements OnInit {
         'Authorization': 'Bearer ' + token
       })
     };
-    return this.http.get<string> ('api/Cartes/AddUsersPoint/' + this.point,  httpOptions ). subscribe( r => this.usersPoint = r);
+    return this.http.get<string> ('api/Cartes/AddUsersPoint/' + this.point,  httpOptions ). subscribe( r => { this.usersPoint = r;
+
+
+    });
   }
   getAletoir() {
     const token = localStorage.getItem('Token');
@@ -72,7 +79,13 @@ export class CarteComponent implements OnInit {
         'Authorization': 'Bearer ' + token
       })
     };
-    return this.http.get<Carte[]> ('api/Cartes/Aletoir', httpOptions ). subscribe( r => this.tabCartUser = r);
+    return this.http.get<Carte[]> ('api/Cartes/Aletoir', httpOptions ). subscribe( r => {this.tabCartUser = r;
+      this.votreTour = this.tabCartAletoir[0].valeurAttaque >  this.tabCartUser[0].valeurAttaque; /// tak mozhno sdelat slychainim pervii hod
+      if ( !this.votreTour) {
+        //// sdes computer dolgen zaiti pervim!!!!!
+        this.computerStart();
+      }
+    });
   }
   selectFromDeck( cart: Carte ) {
     if (this.point === 0 && this.votreTour === true) {
@@ -80,7 +93,7 @@ export class CarteComponent implements OnInit {
        const kart: Carte = new Carte( this.tabCartUser.length + 5, cart.valeurAttaque, cart.valeurDefense,
          cart.prixAchat, cart.prixVendre, cart.image, cart.imageDerier, cart.rezBatail );
       this.tabCartUserParti.push(kart);
-      if (this.tabCartComputerParti.length === 0) {
+      if (this.tabCartComputerParti.length === 0) { /////////zdes computer podymaet nado li dobavliat carty i kakyu
         this.getComputersCart();
       }
       this.votreTour = false;
@@ -99,7 +112,7 @@ export class CarteComponent implements OnInit {
       this.tabCartAletoir.splice(0, 1);
     });
   }
-  setBatail( cart: Carte ) {
+  setBatail( cart: Carte ) { /////// sdes v konce komputer vibiraet s kem dratsia
     if (this.point === 0) {
       if (this.tabCartTour[0] == null && this.tabCartComputerParti.length !== 0) {
         this.tabCartTour.push(cart);
@@ -167,7 +180,10 @@ export class CarteComponent implements OnInit {
           this.tabCartTour[0].image = '/assets/perdu.jpg';
           this.tabCartUserBatu.push(this.tabCartTour[0]);
           this.suprimCartTab(this.tabCartTour[0], this.tabCartUserParti);
+          this. computerStart();
         } else {
+//// user proigral bitvy pervim zahodit Computer
+        // zdes mozho  this.votreTour =  false;
 
         }
 
@@ -176,10 +192,14 @@ export class CarteComponent implements OnInit {
           this.tabCartComputerBatu.push(this.tabCartTour[1]);
           this.suprimCartTab(this.tabCartTour[1], this.tabCartComputerParti);
         } else {
-
+//// computer proigral bitvy pervim zahodit User
           // this.tabCartComputerParti.push(this.tabCartTour[1]);
+          // zdes mozho  this.votreTour = true;
         }
-
+        if ( dCart1 > 0 && dCart2 > 0 ) {
+///// Obe karti zhivi posle bitvi
+// zdes mozho  this.votreTour = !this.votreTour;
+        }
 
       }
       this.tabCartTour.splice(0, 2);
@@ -190,7 +210,7 @@ export class CarteComponent implements OnInit {
       if (this.tabCartUserParti.length === 0 && this.tabCartUser.length === 0) {
         this.point = 1; ///// Game over!!!!
       }
-      this.votreTour = true;
+      this.votreTour = true; ///// togda zdes ybrat
     }
   }
   suprimCartTab (cart: Carte, tab: Carte[]) {

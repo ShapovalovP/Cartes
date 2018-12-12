@@ -2,7 +2,7 @@
   <button  mat-raised-button style="margin: 5px" color= "warn" (click)="setNewGame()"> Nouveau jeu </button>
   <div class="container"  style="width: 100%;  background:beige; margin: 15px;  height: 100%;">
     <div class="row justify-content-center align-items-center" >
-
+<p *ngIf="( votreTour  )">Votre tour</p>
 
 
       <mat-card  *ngFor="let c of tabCartAletoir"  style="width: 60px;  background:brown;  margin: 5px; height: 80px;  " >

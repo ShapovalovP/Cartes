@@ -10,7 +10,7 @@
 
       <button  *ngIf="(User !== null)" mat-raised-button color= "warn" (click)="logout()"  [routerLink]="['/']">  Deconnect {{ User }} </button>
       <button *ngIf="(User !== null)" mat-raised-button style="margin: 5px" color= "warn" [routerLink]="['/login/cartes']"> Partie avec ordinateur </button>
-      <button *ngIf="(User !== null)" mat-raised-button style="margin: 5px" color= "warn" > Partie avec un utilisateur présent  </button>
+      <button *ngIf="(User !== null)" mat-raised-button style="margin: 5px" color= "warn" [routerLink]="['/login/cartesUtilisateur']"> Partie avec un utilisateur présent  </button>
       <button *ngIf="(User !== null)" mat-raised-button style="margin: 5px" color= "warn"[routerLink]="['/login/marche']" > Marché </button>
       <button *ngIf="(User !== null)" mat-raised-button style="margin: 5px" color= "warn"[routerLink]="['/login/decks']" > My decks</button>
 

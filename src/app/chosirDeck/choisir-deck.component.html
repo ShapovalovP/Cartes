@@ -1,0 +1,25 @@
+
+
+<div style=" flex-wrap: wrap; justify-content: space-evenly; margin: 20px;"  >
+  <div *ngFor="let d of deck">
+  <button mat-raised-button color="primary">choisir {{d.name}}</button>
+
+
+
+  <div style="display: inline-block;"   *ngFor="let c of listcarte">
+
+    <div *ngIf="c.deckId===d.id" >
+
+
+      <img src="{{c.image}}" style="width: 250px;height:300px;">
+      <p style="color:white">Attaque: {{c.valeurAttaque}}</p>
+      <p style="color:white">Deffence: {{c.valeurDefense}}</p>
+
+  </div>
+
+
+
+  </div>
+  </div>
+
+</div>

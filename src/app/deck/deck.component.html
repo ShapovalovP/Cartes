@@ -1,13 +1,10 @@
 <div class=" container"  >
   <div class="row">
       <div  style="display: flex; flex-wrap: wrap; justify-content: space-evenly; margin: 2px; ">
-        <mat-card style="margin: 2px;" id="backgroundCarte"    *ngFor="let deck of decks">
-          <mat-card-content>
-            <p>deck.name</p>
+        <mat-card style="margin: 2px; background-color: antiquewhite;" id="backgroundCarte"    *ngFor="let deck of decks">
+          <mat-card-content  >
+            <p>{{deck.name}}</p>
           </mat-card-content>
-          <mat-card-actions>
-            <button mat-raised-button color="primary">Edite</button>
-          </mat-card-actions>
         </mat-card>
       </div>
     <mat-card-content>

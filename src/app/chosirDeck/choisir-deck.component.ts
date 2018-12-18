@@ -13,6 +13,10 @@ export class ChoisirDeckComponent implements OnInit {
   constructor(public router: Router, public http: HttpClient) { }
   public deck: Deck[] = [];
   public listcarte: CarteDeck[] = [];
+
+  public choisir(d: Deck) {
+    alert(d.name + ' choisi pour un futur combat contre un utilisateur');
+  }
   ngOnInit() {
 
     const token = localStorage.getItem('Token');

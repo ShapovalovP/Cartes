@@ -2,7 +2,7 @@
 
 <div style=" flex-wrap: wrap; justify-content: space-evenly; margin: 20px;"  >
   <div *ngFor="let d of deck">
-  <button mat-raised-button color="primary">choisir {{d.name}}</button>
+  <button mat-raised-button color="primary" (click)="choisir(d)">choisir {{d.name}}</button>
 
 
 

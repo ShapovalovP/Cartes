@@ -24,6 +24,9 @@ export class DeckCreatorComponent implements OnInit {
 
   ngOnInit() {
 
+    this.carteEvoyer = [];
+    this.carteNouveauDeck = [];
+  this.carteDeck = [];
 
     const token = localStorage.getItem('Token');
 

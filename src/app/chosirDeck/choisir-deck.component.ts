@@ -40,6 +40,7 @@ export class ChoisirDeckComponent implements OnInit {
     this.deckPret = true;
      for ( const r of this.listcarte ) {
        if ( r.deckId === d.id) {
+         const c: Carte = new Carte(r.id, r.valeurAttaque, r.valeurDefense, 0, 0, r.image, r.imageDerier, 0 );
          this.tabCartUser.push(r);
        }
      }

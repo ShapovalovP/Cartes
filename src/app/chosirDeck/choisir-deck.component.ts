@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Deck} from '../deck/Deck';
+import {Carte} from '../carte/carte';
 
 @Component({
   selector: 'app-choisir-deck',
@@ -10,15 +11,47 @@ import {Deck} from '../deck/Deck';
 })
 export class ChoisirDeckComponent implements OnInit {
 
+  ////////////////////// dlia igri
+  public  votreTour: boolean = true;
+  public  tabCartAletoir: Carte [] = [];
+  public  tabCartUser: Carte [] = [];
+
+  public  tabCartTour: Carte [] = [];
+
+  public  tabCartUserParti: Carte[] = [];
+  public  tabCartComputerParti: Carte[] = [];
+
+  public  tabCartUserBatu: Carte[] = [];
+  public  tabCartComputerBatu: Carte[] = [];
+
+  public  point: number = 0;
+  public  usersPoint: string ;
+
+
+
+  ////////////////
+  public deckPret: boolean = false;
+
   constructor(public router: Router, public http: HttpClient) { }
   public deck: Deck[] = [];
   public listcarte: CarteDeck[] = [];
 
   public choisir(d: Deck) {
-    alert(d.name + ' choisi pour un futur combat contre un utilisateur');
+    this.deckPret = true;
+     for ( const r of this.listcarte ) {
+       if ( r.deckId === d.id) {
+         this.tabCartUser.push(r);
+       }
+     }
+
+  //  alert(d.name + ' choisi pour un futur combat contre un utilisateur');
   }
   ngOnInit() {
-
+    if ( this.deckPret === false) {
+      this.listDeckInical ();
+    }
+  }
+  listDeckInical () {
     const token = localStorage.getItem('Token');
     const httpOptions = {
       headers: new HttpHeaders({
@@ -28,21 +61,18 @@ export class ChoisirDeckComponent implements OnInit {
     };
 
     this.http.get<any>('api/Cartes/GetDeckByUser', httpOptions).subscribe(response => {
-      for (const d of response)
-      {
+      for (const d of response) {
         this.deck.push(new Deck(d.id , d.name));
         console.log(this.deck);
       }
-    })
+    });
 
     this.http.get<any>('api/Cartes/GetAllCarteWithDeckId', httpOptions).subscribe(response2 => {
-      for (const carte of response2)
-      {
-
+      for (const carte of response2) {
         this.listcarte.push(new CarteDeck(carte.id, carte.deckId, carte.valeurAttaque, carte.valeurDefense, carte.image, carte.imageDerier));
         console.log(this.listcarte);
       }
-    })
+    });
   }
 
 }

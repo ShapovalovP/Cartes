@@ -1,6 +1,6 @@
 
 
-<div style=" flex-wrap: wrap; justify-content: space-evenly; margin: 20px;"  >
+<div *ngIf="(deckPret== false )" style=" flex-wrap: wrap; justify-content: space-evenly; margin: 20px;"  >
   <div *ngFor="let d of deck">
   <button mat-raised-button color="primary" (click)="choisir(d)">choisir {{d.name}}</button>
 
@@ -20,6 +20,105 @@
 
 
   </div>
+  </div>
+
+</div>
+<div *ngIf="(deckPret== true )">
+
+  <div class=" container" >
+   <!-- <button  mat-raised-button style="margin: 5px" color= "warn" (click)="setNewGame()"> Nouveau jeu </button>-->
+    <div class="container"  style="width: 100%;  background:beige; margin: 15px;  height: 100%;">
+      <div class="row justify-content-center align-items-center" >
+        <p *ngIf="( votreTour  )">Votre tour</p>
+
+
+        <mat-card  *ngFor="let c of tabCartAletoir"  style="width: 60px;  background:brown;  margin: 5px; height: 80px;  " >
+          <img mat-card-image src= "{{c.imageDerier}}" >
+
+        </mat-card>
+
+        <div *ngIf="( point !== 0 )">
+          <h1 *ngIf="( point === 1000 )"> You got {{point}} points </h1>
+          <h1 *ngIf="( point === 1 )"> Jeu terminé  </h1>
+        </div>
+      </div>
+
+    </div>
+    <div class="container"  style="width: 100%;  background:beige; margin: 15px;  height: 100%;" >
+      <div class="row"  >
+        <div class="col-md 5">
+          <h6 style="font-size: 125%">Cartes battus</h6>
+          <div  style="display: flex; flex-wrap: wrap; justify-content: space-evenly;" >
+
+            <mat-card  *ngFor="let i of tabCartUserBatu"  style="width: 90px;  background:darkblue;  margin: 2px; height: 168px;"  >
+
+              <mat-card-content>
+                <img mat-card-image src= "{{i.image}}">
+                <p style="font-size: 70%; color: white"> A: {{i.valeurAttaque}} D: {{i.rezBatail}} ({{i.valeurDefense}})</p>
+
+              </mat-card-content>
+            </mat-card>
+
+          </div>
+        </div>
+        <div class="col-md 1" > <h4 style="font-size: 125%">User has : {{usersPoint}} points</h4>
+
+          <mat-card  *ngFor="let i of tabCartUserParti"  style="width: 90px;  background:darkblue;  margin: 5px; height: 168px;"  (click)="setBatail(i)"   >
+
+            <mat-card-content>
+              <img mat-card-image src= "{{i.image}}">
+              <p style="font-size: 70%; color: white"> A: {{i.valeurAttaque}} D: {{i.rezBatail}} ({{i.valeurDefense}})</p>
+
+            </mat-card-content>
+          </mat-card>
+
+        </div>
+
+        <div class="col-md 1" ><h4 style="font-size: 125%" > Computer </h4>
+          <mat-card  *ngFor="let i of tabCartComputerParti"  style="width: 90px;  background:darkblue;  margin: 5px; height: 168px;" (click)=" getBatail (i)" >
+
+            <mat-card-content>
+              <img mat-card-image src= "{{i.image}}">
+              <p style="font-size: 70%; color: white"> A: {{i.valeurAttaque}} D: {{i.rezBatail}} ({{i.valeurDefense}})</p>
+
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <div class="col-md 5">
+          <h6 style="font-size: 125%">Cartes battus</h6>
+          <div  style="display: flex; flex-wrap: wrap; justify-content: space-evenly;" >
+
+            <mat-card *ngFor="let i of tabCartComputerBatu"  style="width: 90px;  background:darkblue;  margin: 2px; height: 168px;">
+
+              <mat-card-content>
+                <img mat-card-image src= "{{i.image}}">
+                <p style="font-size: 70%; color: white"> A: {{i.valeurAttaque}} D: {{i.rezBatail}} ({{i.valeurDefense}})</p>
+
+
+              </mat-card-content>
+            </mat-card>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container" style="width: 100%;  background:beige; margin: 15px;  height: 100%">
+      <div class="row justify-content-center align-items-center">
+
+        <mat-card  *ngFor="let c of tabCartUser"  style="width: 190px;  background:darkblue;  margin: 5px; height: 350px;  " (click)=" selectFromDeck(c)" >
+
+
+          <mat-card-content>
+            <img mat-card-image src= "{{c.image}}">
+            <h5 style="color: white"> A: {{c.valeurAttaque}} </h5>
+            <h5 style="color: white"> D: {{c.valeurDefense}} </h5>
+
+          </mat-card-content>
+        </mat-card>
+
+      </div>
+    </div>
   </div>
 
 </div>

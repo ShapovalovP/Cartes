@@ -43,6 +43,6 @@ import { ChoisirDeckComponent } from './chosirDeck/choisir-deck.component';
     BrowserModule
   ],
   providers: [],
-  bootstrap: [AppComponent, DeckCreatorComponent ]
+  bootstrap: [AppComponent ]
 })
 export class AppModule { }

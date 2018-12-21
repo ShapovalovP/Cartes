@@ -217,7 +217,7 @@ export class CarteComponent implements OnInit {
     let atakMax = 0;
     let atakMinNes = 10000;
 
-    for (let i = 0; i < this.tabCartAletoir.length; i++) {///// Zaschita bolshe ataki
+    for (let i = 0; i < this.tabCartAletoir.length; i++) {//// Zaschita bolshe ataki
       if ( atakMax < this.tabCartAletoir[i].valeurAttaque) {
         atakMax = this.tabCartAletoir[i].valeurAttaque;
         indPlusGrangAtak = i;

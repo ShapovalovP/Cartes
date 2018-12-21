@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {Carte} from './carte';
 import {forEach} from '@angular/router/src/utils/collection';
+import {Cartindex} from './cartindex';
 
 @Component({
   selector: 'app-carte',
@@ -10,6 +11,7 @@ import {forEach} from '@angular/router/src/utils/collection';
   styleUrls: ['./carte.component.css']
 })
 export class CarteComponent implements OnInit {
+  public IA: boolean = false;
   public  votreTour: boolean = true;
   public  tabCartAletoir: Carte [] = [];
   public  tabCartUser: Carte [] = [];
@@ -32,7 +34,12 @@ export class CarteComponent implements OnInit {
    this.getUsersPoint();
    }
   computerStart() {
-   this.getComputersCart();
+    if (this.IA === true) {
+      this.getComputersCartAI();
+    }
+    else {
+      this.getComputersCart();
+    }
     this.votreTour = true;
   }
   setNewGame() {
@@ -46,7 +53,22 @@ export class CarteComponent implements OnInit {
     this.tabCartComputerBatu = [];
     this.point = 0;
     this.usersPoint = null ;
+    this.IA = false;
    this.ngOnInit();
+  }
+  setNewGameAI() {
+    this.votreTour = true;
+    this.tabCartAletoir  = [];
+    this.tabCartUser = [];
+    this.tabCartTour = [];
+    this.tabCartUserParti = [];
+    this.tabCartComputerParti = [];
+    this.tabCartUserBatu = [];
+    this.tabCartComputerBatu = [];
+    this.point = 0;
+    this.usersPoint = null ;
+    this.IA = true;
+    this.ngOnInit();
   }
   getUsersPoint() {
     const token = localStorage.getItem('Token');
@@ -94,7 +116,12 @@ export class CarteComponent implements OnInit {
          cart.prixAchat, cart.prixVendre, cart.image, cart.imageDerier, cart.rezBatail );
       this.tabCartUserParti.push(kart);
       if (this.tabCartComputerParti.length === 0) { /////////zdes computer podymaet nado li dobavliat carty i kakyu
-        this.getComputersCart();
+        if (this.IA === true) {
+          this.getComputersCartAI();
+        }
+        else {
+          this.getComputersCart();
+        }
       }
       this.votreTour = false;
     }
@@ -112,13 +139,147 @@ export class CarteComponent implements OnInit {
       this.tabCartAletoir.splice(0, 1);
     });
   }
+  selectFromDeckOrdi( cart: Carte, i: number ) {
+    const kart: Carte = new Carte( this.tabCartAletoir.length + 5, cart.valeurAttaque, cart.valeurDefense,
+      cart.prixAchat, cart.prixVendre, cart.image, cart.imageDerier, cart.rezBatail );
+    this.tabCartComputerParti.push(kart);
+    this.tabCartAletoir.splice(i, 1);
+  }
+  //////////////////////////////// AI////////////////////////////////////////
+  getComputersCartAI() {
+    let choxFait: boolean = false;
+    if ( this.tabCartAletoir.length > 0) {
+
+      if (this.tabCartUserParti.length === 1) {     //////// eto esli y usera 1 karta
+        choxFait = this.verifImage(this.tabCartUserParti[0]);
+        if (choxFait === false) {
+          choxFait = this.verifValeur(this.tabCartUserParti[0]);
+        }
+
+      }
+      else if (this.tabCartUserParti.length === 0) { //////// eto esli y usera 0 karta
+        this.selectFromDeckOrdi (this.tabCartAletoir[0], 0);
+
+        choxFait = true;
+      }
+      else {
+        choxFait = this.verifImagTabl ();
+      }
+    }
+  }
+  verifImagTabl (): boolean {
+    let rez: boolean = false;
+    for (const cartU of this.tabCartUserParti) {
+      rez = this.verifImage(cartU);
+      if (rez) {
+        return rez;
+      }
+    }
+    this.selectFromDeckOrdi (this.tabCartAletoir[0], 0);
+    return true;
+  }
+  verifImage (cart: Carte): boolean {
+    if ( cart.image === '/assets/feu.jpg' ) {
+      for (let i = 0 ; i < this.tabCartAletoir.length; i++)  {
+        if ( this.tabCartAletoir[i].image === '/assets/water.jpg' ) {
+          this.selectFromDeckOrdi (this.tabCartAletoir[i], i);
+          return true;
+        }
+      }
+    }
+    else if ( cart.image === '/assets/water.jpg' ) {
+      for (let i = 0 ; i < this.tabCartAletoir.length; i++)  {
+        if ( this.tabCartAletoir[i].image === '/assets/terre.jpg' ) {
+          this.selectFromDeckOrdi (this.tabCartAletoir[i], i);
+          return true;
+        }
+      }
+    }
+    else if ( cart.image === '/assets/terre.jpg' ) {
+      for (let i = 0 ; i < this.tabCartAletoir.length; i++)  {
+        if ( this.tabCartAletoir[i].image === '/assets/feu.jpg' ) {
+          this.selectFromDeckOrdi (this.tabCartAletoir[i], i);
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+  verifValeur (cart: Carte): boolean {
+    if (cart.rezBatail > 0) {
+      cart.valeurDefense = cart.rezBatail;
+    }
+
+    let indPlusGrangAtak: number = 0 ;
+    let indAtakMinNesesair: number = 0 ;
+    const tabCartIndex: Cartindex [] = [];
+
+    let atakMax = 0;
+    let atakMinNes = 10000;
+
+    for (let i = 0; i < this.tabCartAletoir.length; i++) {///// Zaschita bolshe ataki
+      if ( atakMax < this.tabCartAletoir[i].valeurAttaque) {
+        atakMax = this.tabCartAletoir[i].valeurAttaque;
+        indPlusGrangAtak = i;
+      }
+      if (this.tabCartAletoir[i].valeurDefense > cart.valeurAttaque) {
+        const newC: Cartindex = new Cartindex( i, this.tabCartAletoir[i] );
+        tabCartIndex.push(newC);
+      }
+    }
+    if ( tabCartIndex.length === 0) {
+
+      for (let i = 0; i < this.tabCartAletoir.length; i++) {///// Ataka bolshe ili ravna zachite
+        if (this.tabCartAletoir[i].valeurAttaque >= cart.valeurDefense) {
+          const newC: Cartindex = new Cartindex(i, this.tabCartAletoir[i] );
+          tabCartIndex.push(newC);
+          if ( atakMinNes >  this.tabCartAletoir[i].valeurAttaque) {
+            atakMinNes = this.tabCartAletoir[i].valeurAttaque;
+            indAtakMinNesesair = i;
+          }
+        }
+      }
+    }
+    else{///// est to chto  Zaschita bolshe ataki
+      for (let i = 0; i < tabCartIndex.length; i++) {   ///// Zaschita bolshe ataki i Ataka bolshe ili ravna zachite
+        if (tabCartIndex[i].carte.valeurAttaque >= cart.valeurDefense ) {
+          this.selectFromDeckOrdi (this.tabCartAletoir[i], i);
+          return true;
+        }
+      }
+    }
+    if ( tabCartIndex.length === 0) { ///// s samoi bolshoi Atakoi
+      this.selectFromDeckOrdi (this.tabCartAletoir[indPlusGrangAtak], indPlusGrangAtak);
+
+      return true;
+    }
+    else {  ///////////// Zaschita menche ataki no Ataka bolshe ili ravna zachite
+      if ( indAtakMinNesesair <= this.tabCartAletoir.length - 1 ) {
+        this.selectFromDeckOrdi (this.tabCartAletoir[indAtakMinNesesair], indAtakMinNesesair);
+
+        return true;
+      }
+      else {
+        this.selectFromDeckOrdi (this.tabCartAletoir[0], 0);
+
+      }
+    }
+
+  }
+
+
   setBatail( cart: Carte ) { /////// sdes v konce komputer vibiraet s kem dratsia
     if (this.point === 0) {
       if (this.tabCartTour[0] == null && this.tabCartComputerParti.length !== 0) {
         this.tabCartTour.push(cart);
       }
       if (this.tabCartComputerParti.length === 0 && this.tabCartAletoir.length > 0) {
-        this.getComputersCart();
+        if (this.IA === true) {
+          this.getComputersCartAI();
+        }
+        else {
+          this.getComputersCart();
+        }
       }
       if (this.tabCartComputerParti.length === 0 && this.tabCartAletoir.length === 0) {
         this.point = 1000; ///// Game over!!!!

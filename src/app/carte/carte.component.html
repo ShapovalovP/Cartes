@@ -1,5 +1,8 @@
 <div class=" container" >
   <button  mat-raised-button style="margin: 5px" color= "warn" (click)="setNewGame()"> Nouveau jeu </button>
+  <button  mat-raised-button style="margin: 5px" color= "warn" (click)="setNewGameAI()"> Nouveau jeu avec AI </button>
+  <p *ngIf="( IA )">AI</p>
+
   <div class="container"  style="width: 100%;  background:beige; margin: 15px;  height: 100%;">
     <div class="row justify-content-center align-items-center" >
 <p *ngIf="( votreTour  )">Votre tour</p>
